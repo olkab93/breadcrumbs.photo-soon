@@ -5,6 +5,7 @@
     --ink: #171717;
     --muted: #77736b;
     --line: #c9c5bb;
+    --header-height: 97px;
 }
 
 * {
@@ -16,6 +17,10 @@ html {
 }
 
 body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100svh;
     margin: 0;
     background: var(--paper);
     color: var(--ink);
@@ -35,13 +40,14 @@ img {
 }
 
 header {
+    position: sticky;
+    top: 0;
+    flex: 0 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 24px 32px;
     border-bottom: 1px solid var(--line);
-    position: sticky;
-    top: 0;
     background: rgba(243, 240, 232, 0.94);
     backdrop-filter: blur(8px);
     z-index: 10;
@@ -66,8 +72,10 @@ header {
 }
 
 .hero {
-    min-height: calc(100vh - 70px);
-    padding: 60px 32px 80px;
+    flex: 0 0 auto;
+    min-height: calc(100vh - var(--header-height));
+    min-height: calc(100svh - var(--header-height));
+    padding: clamp(24px, 6svh, 60px) 32px clamp(28px, 7svh, 80px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -99,7 +107,7 @@ h1 {
     justify-content: space-between;
     align-items: flex-end;
     gap: 40px;
-    margin-top: 100px;
+    margin-top: clamp(32px, 8svh, 100px);
 }
 
 .hero-description {
@@ -135,13 +143,18 @@ footer a {
 }
 
 @media (max-width: 700px) {
+    :root {
+        --header-height: 85px;
+    }
+
     header {
         padding: 18px 20px;
     }
 
     .hero {
-        min-height: calc(100vh - 70px);
-        padding: 45px 20px 50px;
+        min-height: calc(100vh - var(--header-height));
+        min-height: calc(100svh - var(--header-height));
+        padding: clamp(20px, 4svh, 36px) 20px clamp(24px, 5svh, 42px);
     }
 
     h1 {
@@ -151,7 +164,12 @@ footer a {
     .hero-bottom {
         display: flex;
         align-items: flex-end;
-        margin-top: 80px;
+        margin-top: clamp(24px, 5svh, 48px);
+        gap: 20px;
+    }
+
+    .hero-description {
+        font-size: clamp(16px, 4.4vw, 19px);
     }
 
     .scroll-note {
@@ -161,5 +179,31 @@ footer a {
     footer {
         padding: 25px 20px;
         flex-direction: column;
+    }
+}
+
+
+@media (max-height: 700px) and (max-width: 700px) {
+    .hero {
+        padding-top: 18px;
+        padding-bottom: 20px;
+    }
+
+    .eyebrow {
+        margin-bottom: 16px;
+    }
+
+    h1 {
+        font-size: clamp(52px, 16vw, 76px);
+    }
+
+    .hero-bottom {
+        margin-top: 20px;
+    }
+
+    footer {
+        gap: 12px;
+        padding-top: 16px;
+        padding-bottom: 16px;
     }
 }
